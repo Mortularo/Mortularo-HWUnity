@@ -12,7 +12,7 @@ public class ChararcterMovement : MonoBehaviour
     public float gravity = -19.62f;
     public float grDistance = 0.4f;
     public float jHeight = 1.5f;
-    public float rSpeed = 300f;
+    public float rSpeed = 800f;
 
     Vector3 _velocity;
 

@@ -17,5 +17,9 @@ public class AttackThrust : MonoBehaviour
         {
             gameObject.GetComponent<Animator>().SetTrigger("Attack");
         }
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            gameObject.GetComponent<Animator>().SetTrigger("Grenade");
+        }
     }
 }
