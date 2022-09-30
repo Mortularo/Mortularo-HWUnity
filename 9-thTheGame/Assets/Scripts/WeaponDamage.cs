@@ -8,8 +8,6 @@ public class WeaponDamage : MonoBehaviour
 {
     [SerializeField] private int _damage = 5;
 
-    // Update is called once per frame
-
     private void OnTriggerEnter(Collider col)
     { 
         if(col.gameObject.CompareTag("EnemyAI"))
@@ -19,4 +17,22 @@ public class WeaponDamage : MonoBehaviour
         }
     }
     
+    private void Start()
+    {
+        GetComponent<MeshCollider>().enabled = false;
+
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            GetComponent<MeshCollider>().enabled = true;
+
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            GetComponent<MeshCollider>().enabled = false;
+        }
+    }
 }
