@@ -13,9 +13,8 @@ public class TurretShoot : MonoBehaviour
     public float cSpeed = 10f;
     public float sDistanse = 10f;
     public float _range = 10f;
-    public float fireRate = 60f;
-    private float _fireRate;
-    public Text timer;
+    public int maxShots = 1;
+    private int curentShots;
     //public AudioClip shot;
 
     void Update()
@@ -35,9 +34,10 @@ public class TurretShoot : MonoBehaviour
         Vector3 curTarget = _target.transform.position - barrel.position;
         if (Physics.Raycast(barrel.transform.position, barrel.transform.forward, out hit, _range))
         {
-            //Debug.Log("Got it");
             GameObject nextBall = Instantiate(canBall, barrel.position, Quaternion.identity);
             nextBall.GetComponent<Rigidbody>().AddForce(curTarget.normalized * cSpeed, ForceMode.Impulse);
+            
         }
+        
     }
 }

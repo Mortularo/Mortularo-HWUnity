@@ -10,6 +10,8 @@ public class patronBehav : StateMachineBehaviour
     List<Transform> points = new List<Transform>();
     NavMeshAgent _agent;
     public bool gotCollide;
+    Transform player;
+    float chaseRange = 10f;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -22,6 +24,9 @@ public class patronBehav : StateMachineBehaviour
         _agent = animator.GetComponent<NavMeshAgent>();
         _agent.SetDestination(points[Random.Range(0, points.Count)].position);
         gotCollide = false;
+
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
     }
 
 
@@ -38,6 +43,12 @@ public class patronBehav : StateMachineBehaviour
         if (timer > Random.Range(10, 50))
         {
             animator.SetBool("onPatrol", false);
+        }
+
+        float distance = Vector3.Distance(animator.transform.position, player.position);
+        if(distance <= chaseRange)
+        {
+            animator.SetBool("isChasing", true);
         }
     }
 

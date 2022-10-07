@@ -1,38 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class idleBehav : StateMachineBehaviour
+public class attackBevav : StateMachineBehaviour
 {
-    float timer;
     Transform player;
-    float chaseRange = 10f;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer = 0;
+        player = GameObject.FindGameObjectWithTag("Player").transform;    
     }
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timer += Time.deltaTime;
-        if (timer > Random.Range(5, 40))
-        {
-            animator.SetBool("onPatrol", true);
-        }
-        
+        animator.transform.LookAt(player);
         float distance = Vector3.Distance(animator.transform.position, player.position);
-        
-        if (distance <= chaseRange)
+        if (distance > 3)
         {
-            animator.SetBool("isChasing", true);
+            animator.SetBool("isAttacking", false);
         }
     }
 
-     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         
     }
 
-
+    
 }
