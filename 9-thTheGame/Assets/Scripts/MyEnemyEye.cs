@@ -10,26 +10,27 @@ public class MyEnemyEye : MonoBehaviour
     public float detectionDistance = 3f;
     public Transform _enemyEye;
     public Transform _target;
-
-    public NavMeshAgent _agent;
+    //public NavMeshAgent _agent;
     private Transform _agentTransform;
 
+    /*/
     void Start()
     {
+        //_target = FindGameObjectWithTag("Player");
         _agent = GetComponent<NavMeshAgent>();
         _agent.updateRotation = false;
         _agentTransform = _agent.transform;
-    }
+    }*/
 
     
     void Update()
     {
-        float distanceToPlayer = Vector3.Distance(_target.transform.position, _agent.transform.position);
+        float distanceToPlayer = Vector3.Distance(_target.transform.position, transform.position);
         if (distanceToPlayer <= detectionDistance || IsInView())
         {
             RotateToTarget();
-            MoveToTarget();
         }
+        DrawViewState();
     }
 
     private bool IsInView()
@@ -49,9 +50,15 @@ public class MyEnemyEye : MonoBehaviour
     { 
     
     }
-    private void MoveToTarget()
+    /*private void MoveToTarget()
     {
         _agent.SetDestination(_target.position);
+    }*/
+    private void DrawViewState()
+    {
+        Vector3 left = _enemyEye.position + Quaternion.Euler(new Vector3(0, viewAngle / 2F, 0)) * (_enemyEye.forward * viewDistance);
+        Vector3 right = _enemyEye.position + Quaternion.Euler(-new Vector3(0, viewAngle / 2F, 0)) * (_enemyEye.forward * viewDistance);
+        Debug.DrawLine(_enemyEye.position, left, Color.yellow);
+        Debug.DrawLine(_enemyEye.position, right, Color.yellow);
     }
-
 }
